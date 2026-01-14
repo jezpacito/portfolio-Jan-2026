@@ -18,11 +18,15 @@
       <div class="flex flex-col md:flex-row items-start gap-12">
         <!-- Profile Picture -->
         <div class="flex-shrink-0">
-          <div class="w-auto h-full rounded-sm overflow-hidden border-2 border-harvard-navy/10">
+          <div 
+            @click="animateProfile"
+            class="w-auto h-full rounded-sm overflow-hidden border-2 border-harvard-navy/10 dark:border-gray-600 cursor-pointer transition-all duration-300 hover:shadow-xl hover:scale-105"
+            :class="{ 'animate-bounce': isAnimating }"
+          >
             <img 
               src="/profile.png" 
               alt="Jez Gatmaitan"
-              class="w-40 h-full object-cover"
+              class="w-40 h-full object-cover transition-transform duration-500 hover:scale-110 hover:rotate-2"
             />
           </div>
         </div>
@@ -61,6 +65,7 @@
 import { ref, onMounted } from 'vue'
 
 const isDark = ref(false)
+const isAnimating = ref(false)
 
 onMounted(() => {
   // Check if dark mode was previously set
@@ -77,6 +82,13 @@ const toggleDarkMode = () => {
     document.documentElement.classList.remove('dark')
     localStorage.setItem('darkMode', 'false')
   }
+}
+
+const animateProfile = () => {
+  isAnimating.value = true
+  setTimeout(() => {
+    isAnimating.value = false
+  }, 1000)
 }
 </script>
 
